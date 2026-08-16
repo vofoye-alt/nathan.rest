@@ -1,1 +1,621 @@
-hi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#05070c">
+<title>roox — Official</title>
+
+<style>
+:root{
+  --bg:#05070c;
+  --card:rgba(14,18,29,.72);
+  --line:rgba(255,255,255,.10);
+  --text:#f7f9ff;
+  --muted:#9ca7bb;
+  --blue:#2495ff;
+  --shadow:0 25px 80px rgba(0,0,0,.45);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 50% -10%,rgba(36,149,255,.20),transparent 34rem),
+    radial-gradient(circle at 100% 30%,rgba(0,109,255,.08),transparent 25rem),
+    var(--bg);
+  overflow-x:hidden;
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  justify-content:flex-end;
+  padding:16px 18px;
+  background:linear-gradient(
+    to bottom,
+    rgba(5,7,12,.92),
+    rgba(5,7,12,.35),
+    transparent
+  );
+  backdrop-filter:blur(12px);
+}
+
+.tabs{
+  display:flex;
+  gap:4px;
+  padding:4px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(15,19,30,.78);
+  box-shadow:0 10px 35px rgba(0,0,0,.25);
+}
+
+.tab{
+  border:0;
+  color:var(--muted);
+  background:transparent;
+  padding:9px 15px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:700;
+  font-size:13px;
+  transition:.2s ease;
+}
+
+.tab.active{
+  color:#fff;
+  background:#ffffff12;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+}
+
+.page{
+  width:min(680px,calc(100% - 28px));
+  margin:0 auto;
+  padding:24px 0 55px;
+}
+
+.hero{
+  text-align:center;
+  padding:12px 0 22px;
+}
+
+.avatar{
+  width:104px;
+  height:104px;
+  border-radius:50%;
+  margin:0 auto 17px;
+  display:grid;
+  place-items:center;
+  font-size:35px;
+  font-weight:900;
+  letter-spacing:-2px;
+  background:linear-gradient(145deg,#1e2638,#080b13);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:
+    0 0 0 6px rgba(36,149,255,.06),
+    0 18px 50px rgba(0,0,0,.45);
+}
+
+h1{
+  margin:0;
+  font-size:30px;
+  letter-spacing:-1px;
+}
+
+.verified{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  margin-left:5px;
+  background:#1689ff;
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  vertical-align:3px;
+  box-shadow:0 2px 8px rgba(22,137,255,.4);
+}
+
+.verified:after{
+  content:"✓";
+}
+
+.subtitle{
+  margin:8px 0 0;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+  margin:18px 0;
+}
+
+.stat{
+  border:1px solid var(--line);
+  background:var(--card);
+  backdrop-filter:blur(18px);
+  box-shadow:var(--shadow);
+  padding:14px;
+  border-radius:18px;
+  text-align:center;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+}
+
+.views{
+  margin-top:4px;
+  font-size:22px;
+  font-weight:850;
+  letter-spacing:-.5px;
+}
+
+.links{
+  display:grid;
+  gap:12px;
+}
+
+.social{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  text-decoration:none;
+  color:#fff;
+  padding:17px 18px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:var(--card);
+  backdrop-filter:blur(18px);
+  box-shadow:var(--shadow);
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    background .18s ease;
+}
+
+.social:hover{
+  transform:translateY(-2px);
+  border-color:rgba(36,149,255,.45);
+  background:rgba(18,24,38,.9);
+}
+
+.left{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  min-width:0;
+}
+
+.icon{
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:rgba(255,255,255,.07);
+  font-size:16px;
+  font-weight:900;
+}
+
+.handle{
+  font-size:15px;
+  font-weight:750;
+  white-space:nowrap;
+}
+
+.check{
+  display:inline-grid;
+  place-items:center;
+  width:17px;
+  height:17px;
+  margin-left:5px;
+  border-radius:50%;
+  background:#1689ff;
+  font-size:10px;
+  font-weight:900;
+  vertical-align:1px;
+}
+
+.check:after{
+  content:"✓";
+}
+
+.arrow{
+  color:#6f7b91;
+  font-size:20px;
+}
+
+.blog{
+  display:none;
+  min-height:70vh;
+}
+
+.blog.active{
+  display:block;
+}
+
+.home{
+  display:block;
+}
+
+.home.active{
+  display:block;
+}
+
+footer{
+  text-align:center;
+  color:#58657b;
+  font-size:11px;
+  margin-top:28px;
+}
+
+@media(max-width:480px){
+
+  .topbar{
+    padding:12px;
+  }
+
+  .page{
+    width:min(100% - 20px,680px);
+    padding-top:14px;
+  }
+
+  .avatar{
+    width:92px;
+    height:92px;
+  }
+
+  h1{
+    font-size:27px;
+  }
+
+  .tab{
+    padding:8px 12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="topbar">
+  <div class="tabs">
+
+    <button
+      class="tab active"
+      id="socialTab"
+      onclick="showPage('social')">
+      Socials
+    </button>
+
+    <button
+      class="tab"
+      id="blogTab"
+      onclick="showPage('blog')">
+      Personal Blog
+    </button>
+
+  </div>
+</nav>
+
+
+<main class="page">
+
+  <!-- SOCIAL PAGE -->
+
+  <section class="home active" id="socialPage">
+
+    <header class="hero">
+
+      <div class="avatar">
+        R
+      </div>
+
+      <h1>
+        roox
+        <span class="verified"></span>
+      </h1>
+
+      <p class="subtitle">
+        Official social hub
+      </p>
+
+    </header>
+
+
+    <!-- WEBSITE VIEWS -->
+
+    <section class="stats">
+
+      <div class="stat">
+
+        <div class="stat-label">
+          Website Views
+        </div>
+
+        <div
+          class="views"
+          id="viewCounter">
+          2,000
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SOCIAL LINKS -->
+
+    <div class="links">
+
+      <a
+        class="social"
+        href="https://www.tiktok.com/@roox"
+        target="_blank"
+        rel="noopener">
+
+        <span class="left">
+
+          <span class="icon">
+            ♪
+          </span>
+
+          <span class="handle">
+            @roox
+            <span class="check"></span>
+          </span>
+
+        </span>
+
+        <span class="arrow">
+          ›
+        </span>
+
+      </a>
+
+
+      <a
+        class="social"
+        href="https://www.tiktok.com/@ncthrn"
+        target="_blank"
+        rel="noopener">
+
+        <span class="left">
+
+          <span class="icon">
+            ♪
+          </span>
+
+          <span class="handle">
+            @ncthrn
+            <span class="check"></span>
+          </span>
+
+        </span>
+
+        <span class="arrow">
+          ›
+        </span>
+
+      </a>
+
+
+      <a
+        class="social"
+        href="https://www.instagram.com/rebt"
+        target="_blank"
+        rel="noopener">
+
+        <span class="left">
+
+          <span class="icon">
+            ◎
+          </span>
+
+          <span class="handle">
+            @rebt
+            <span class="check"></span>
+          </span>
+
+        </span>
+
+        <span class="arrow">
+          ›
+        </span>
+
+      </a>
+
+
+      <a
+        class="social"
+        href="https://www.snapchat.com/add/ncthvn"
+        target="_blank"
+        rel="noopener">
+
+        <span class="left">
+
+          <span class="icon">
+            👻
+          </span>
+
+          <span class="handle">
+            @ncthvn
+            <span class="check"></span>
+          </span>
+
+        </span>
+
+        <span class="arrow">
+          ›
+        </span>
+
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- COMPLETELY BLANK PERSONAL BLOG PAGE -->
+
+  <section
+    class="blog"
+    id="blogPage">
+  </section>
+
+
+  <footer>
+    © 2026 roox · All links in one place
+  </footer>
+
+</main>
+
+
+<script>
+
+function showPage(page){
+
+  const socialPage =
+    document.getElementById("socialPage");
+
+  const blogPage =
+    document.getElementById("blogPage");
+
+  const socialTab =
+    document.getElementById("socialTab");
+
+  const blogTab =
+    document.getElementById("blogTab");
+
+  const isBlog =
+    page === "blog";
+
+  socialPage.classList.toggle(
+    "active",
+    !isBlog
+  );
+
+  blogPage.classList.toggle(
+    "active",
+    isBlog
+  );
+
+  socialTab.classList.toggle(
+    "active",
+    !isBlog
+  );
+
+  blogTab.classList.toggle(
+    "active",
+    isBlog
+  );
+
+  history.replaceState(
+    null,
+    "",
+    isBlog ? "#blog" : "#social"
+  );
+}
+
+
+/*
+  WEBSITE VIEW COUNTER
+
+  Starts at 2,000.
+
+  Adds 10,000 views every 24 hours.
+
+  The timestamp is saved in the browser,
+  so refreshing the page doesn't reset it.
+*/
+
+const KEY =
+  "roox_site_views_started";
+
+let started =
+  localStorage.getItem(KEY);
+
+if(!started){
+
+  started = Date.now();
+
+  localStorage.setItem(
+    KEY,
+    started
+  );
+
+}
+
+
+function updateViews(){
+
+  const elapsed =
+    Math.max(
+      0,
+      Date.now() - Number(started)
+    );
+
+  const days =
+    elapsed / 86400000;
+
+  const views =
+    2000 + Math.floor(days * 10000);
+
+  document.getElementById(
+    "viewCounter"
+  ).textContent =
+    views.toLocaleString("en-US");
+
+}
+
+
+updateViews();
+
+setInterval(
+  updateViews,
+  1000
+);
+
+
+/*
+  If someone opens:
+  #blog
+
+  the blank Personal Blog page
+  will automatically appear.
+*/
+
+if(
+  location.hash === "#blog"
+){
+
+  showPage("blog");
+
+}
+
+</script>
+
+</body>
+</html>
