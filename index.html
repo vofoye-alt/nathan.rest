@@ -3,15 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#071a18">
-
 <title>Nathan — Official</title>
 
 <style>
 :root{
   --bg:#071a18;
-  --card:rgba(13,32,29,.78);
-  --line:rgba(255,255,255,.10);
+  --card:#0d2521;
+  --line:rgba(255,255,255,.1);
   --text:#f7f9ff;
   --muted:#9caeaa;
   --blue:#1689ff;
@@ -34,12 +32,7 @@ body{
   overflow-x:hidden;
 }
 
-button,
-a{
-  font:inherit;
-}
-
-/* TOP TABS */
+/* TOP NAV */
 
 .topbar{
   position:sticky;
@@ -82,7 +75,7 @@ a{
   background:#ffffff12;
 }
 
-/* MAIN */
+/* PAGE */
 
 .page{
   width:min(680px,calc(100% - 28px));
@@ -123,6 +116,8 @@ h1{
   font-size:14px;
 }
 
+/* BLUE CHECK */
+
 .verified{
   display:inline-flex;
   align-items:center;
@@ -143,7 +138,7 @@ h1{
   content:"✓";
 }
 
-/* VIEWS */
+/* WEBSITE VIEWS */
 
 .stats{
   margin:18px 0;
@@ -151,7 +146,7 @@ h1{
 
 .stat{
   border:1px solid var(--line);
-  background:var(--card);
+  background:rgba(13,37,33,.78);
   backdrop-filter:blur(18px);
   padding:14px;
   border-radius:18px;
@@ -171,7 +166,7 @@ h1{
   font-weight:850;
 }
 
-/* SOCIAL LINKS */
+/* SOCIAL BUTTONS */
 
 .links{
   display:grid;
@@ -188,7 +183,7 @@ h1{
   padding:17px 18px;
   border-radius:18px;
   border:1px solid var(--line);
-  background:var(--card);
+  background:rgba(13,37,33,.78);
   backdrop-filter:blur(18px);
   transition:.18s ease;
 }
@@ -211,7 +206,6 @@ h1{
   border-radius:13px;
   display:grid;
   place-items:center;
-  background:#fff;
   overflow:hidden;
   flex:none;
 }
@@ -271,7 +265,7 @@ h1{
   font-size:22px;
 }
 
-/* BLOG / PROFILE */
+/* SCREENS */
 
 .screen{
   display:none;
@@ -286,7 +280,7 @@ h1{
   min-height:70vh;
 }
 
-/* PROFILE PAGE */
+/* PROFILE */
 
 .profile{
   text-align:center;
@@ -349,7 +343,7 @@ h1{
 
 .back{
   border:1px solid var(--line);
-  background:var(--card);
+  background:rgba(13,37,33,.78);
   color:#fff;
   padding:10px 15px;
   border-radius:999px;
@@ -357,7 +351,7 @@ h1{
   font-weight:700;
 }
 
-/* 3D SOCIAL POPUP */
+/* 3D POPUP */
 
 .modal{
   position:fixed;
@@ -367,7 +361,7 @@ h1{
   align-items:center;
   justify-content:center;
   padding:20px;
-  background:rgba(0,0,0,.72);
+  background:rgba(0,0,0,.74);
   backdrop-filter:blur(12px);
   perspective:1400px;
 }
@@ -376,56 +370,60 @@ h1{
   display:flex;
 }
 
-.modal-card{
+/*
+  IMPORTANT:
+  The iframe itself is the 3D object.
+*/
+
+.modal-stage{
   width:min(430px,94vw);
   height:min(620px,82vh);
   position:relative;
-  border:1px solid rgba(255,255,255,.15);
+}
+
+.social-3d-iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+
+  border:1px solid rgba(255,255,255,.16);
   border-radius:26px;
-  overflow:hidden;
+
   background:#071a18;
-  box-shadow:0 35px 100px rgba(0,0,0,.65);
-  transform-style:preserve-3d;
+
+  box-shadow:
+    0 35px 100px rgba(0,0,0,.65),
+    0 0 0 1px rgba(255,255,255,.03);
+
+  overflow:hidden;
+
   transform:
     rotateX(0deg)
     rotateY(0deg)
     scale(.92);
+
+  transform-style:preserve-3d;
+
   transition:transform .12s ease-out;
+
   touch-action:none;
   user-select:none;
 }
 
-.modal-card iframe{
-  width:100%;
-  height:100%;
-  border:0;
-  display:block;
-  background:#071a18;
-  pointer-events:none;
-}
+/* POPUP CONTROLS */
 
-.modal-overlay{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(0,0,0,.05),
-      transparent 55%,
-      rgba(0,0,0,.18)
-    );
-}
-
-.modal-top{
+.modal-controls{
   position:absolute;
   top:14px;
   left:14px;
   right:14px;
-  z-index:3;
+  z-index:5;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  pointer-events:none;
 }
 
 .modal-title{
@@ -446,11 +444,12 @@ h1{
   background:rgba(0,0,0,.62);
   cursor:pointer;
   font-size:20px;
+  pointer-events:auto;
 }
 
 .hint{
   position:absolute;
-  z-index:3;
+  z-index:5;
   bottom:73px;
   left:0;
   right:0;
@@ -462,7 +461,7 @@ h1{
 
 .continue{
   position:absolute;
-  z-index:4;
+  z-index:6;
   bottom:18px;
   left:18px;
   right:18px;
@@ -511,7 +510,7 @@ footer{
     padding:8px 12px;
   }
 
-  .modal-card{
+  .modal-stage{
     height:80vh;
   }
 }
@@ -521,7 +520,7 @@ footer{
 
 <body>
 
-<!-- TOP NAVIGATION -->
+<!-- NAVIGATION -->
 
 <nav class="topbar">
 
@@ -535,6 +534,7 @@ footer{
       Socials
 
     </button>
+
 
     <button
       class="tab"
@@ -563,6 +563,7 @@ footer{
       N
     </div>
 
+
     <h1>
 
       nathan
@@ -571,6 +572,7 @@ footer{
 
     </h1>
 
+
     <p class="subtitle">
       Official social hub
     </p>
@@ -578,160 +580,159 @@ footer{
   </header>
 
 
-  <!-- WEBSITE VIEWS -->
+<!-- WEBSITE VIEWS -->
 
-  <section class="stats">
+<section class="stats">
 
-    <div class="stat">
+  <div class="stat">
 
-      <div class="stat-label">
-        Website Views
-      </div>
-
-      <div
-        class="views"
-        id="viewCounter">
-
-        2,000
-
-      </div>
-
+    <div class="stat-label">
+      Website Views
     </div>
 
-  </section>
+    <div
+      class="views"
+      id="viewCounter">
 
+      2,000
 
-  <!-- SOCIAL LINKS -->
-
-  <div class="links">
-
-
-    <!-- TIKTOK -->
-
-    <a
-      class="social tiktok"
-      href="#"
-      onclick="openSocialPreview(event,'tiktok-roox')">
-
-      <span class="left">
-
-        <span class="app-icon">
-
-          <img
-            src="https://cdn.simpleicons.org/tiktok/ffffff"
-            alt="TikTok">
-
-        </span>
-
-
-        <span class="handle">
-
-          @roox
-
-          <span class="check"></span>
-
-          <span class="followers">
-            655,000 followers
-          </span>
-
-        </span>
-
-      </span>
-
-
-      <span class="arrow">
-        ›
-      </span>
-
-    </a>
-
-
-    <!-- INSTAGRAM -->
-
-    <a
-      class="social instagram"
-      href="#"
-      onclick="openSocialPreview(event,'instagram-rebt')">
-
-      <span class="left">
-
-        <span class="app-icon">
-
-          <img
-            src="https://cdn.simpleicons.org/instagram/ffffff"
-            alt="Instagram">
-
-        </span>
-
-
-        <span class="handle">
-
-          @rebt
-
-          <span class="check"></span>
-
-          <span class="followers">
-            31,000 followers
-          </span>
-
-        </span>
-
-      </span>
-
-
-      <span class="arrow">
-        ›
-      </span>
-
-    </a>
-
-
-    <!-- SNAPCHAT -->
-
-    <a
-      class="social snapchat"
-      href="#"
-      onclick="openSocialPreview(event,'snapchat-ncthvn')">
-
-      <span class="left">
-
-        <span class="app-icon">
-
-          <img
-            src="https://cdn.simpleicons.org/snapchat/000000"
-            alt="Snapchat">
-
-        </span>
-
-
-        <span class="handle">
-
-          @ncthvn
-
-          <span class="check"></span>
-
-          <span class="followers">
-            47,700,000 Snapscore
-          </span>
-
-        </span>
-
-      </span>
-
-
-      <span class="arrow">
-        ›
-      </span>
-
-    </a>
-
+    </div>
 
   </div>
 
 </section>
 
 
-<!-- BLANK PERSONAL BLOG -->
+<!-- SOCIAL LINKS -->
+
+<div class="links">
+
+
+<!-- TIKTOK -->
+
+<a
+  class="social tiktok"
+  href="#"
+  onclick="openSocialPreview(event,'tiktok-roox')">
+
+  <span class="left">
+
+    <span class="app-icon">
+
+      <img
+        src="https://cdn.simpleicons.org/tiktok/ffffff"
+        alt="TikTok">
+
+    </span>
+
+
+    <span class="handle">
+
+      @roox
+
+      <span class="check"></span>
+
+      <span class="followers">
+        655,000 followers
+      </span>
+
+    </span>
+
+  </span>
+
+
+  <span class="arrow">
+    ›
+  </span>
+
+</a>
+
+
+<!-- INSTAGRAM -->
+
+<a
+  class="social instagram"
+  href="#"
+  onclick="openSocialPreview(event,'instagram-rebt')">
+
+  <span class="left">
+
+    <span class="app-icon">
+
+      <img
+        src="https://cdn.simpleicons.org/instagram/ffffff"
+        alt="Instagram">
+
+    </span>
+
+
+    <span class="handle">
+
+      @rebt
+
+      <span class="check"></span>
+
+      <span class="followers">
+        31,000 followers
+      </span>
+
+    </span>
+
+  </span>
+
+
+  <span class="arrow">
+    ›
+  </span>
+
+</a>
+
+
+<!-- SNAPCHAT -->
+
+<a
+  class="social snapchat"
+  href="#"
+  onclick="openSocialPreview(event,'snapchat-ncthvn')">
+
+  <span class="left">
+
+    <span class="app-icon">
+
+      <img
+        src="https://cdn.simpleicons.org/snapchat/000000"
+        alt="Snapchat">
+
+    </span>
+
+
+    <span class="handle">
+
+      @ncthvn
+
+      <span class="check"></span>
+
+      <span class="followers">
+        47,700,000 Snapscore
+      </span>
+
+    </span>
+
+  </span>
+
+
+  <span class="arrow">
+    ›
+  </span>
+
+</a>
+
+</div>
+
+</section>
+
+
+<!-- BLANK BLOG -->
 
 <section
   id="blogPage"
@@ -739,23 +740,19 @@ footer{
 </section>
 
 
-<!-- INDIVIDUAL SOCIAL PAGE -->
+<!-- PROFILE PAGE -->
 
 <section
   id="profilePage"
   class="screen">
 
-  <div>
+  <button
+    class="back"
+    onclick="goHome()">
 
-    <button
-      class="back"
-      onclick="goHome()">
+    ← Back
 
-      ← Back
-
-    </button>
-
-  </div>
+  </button>
 
 
   <div class="profile">
@@ -802,7 +799,7 @@ footer{
 </section>
 
 
-<!-- 3D SOCIAL PREVIEW -->
+<!-- 3D IFRAME POPUP -->
 
 <div
   class="modal"
@@ -810,12 +807,20 @@ footer{
   aria-hidden="true">
 
 
-  <div
-    class="modal-card"
-    id="modalCard">
+  <div class="modal-stage">
 
 
-    <div class="modal-top">
+    <!-- THE IFRAME ITSELF IS THE 3D OBJECT -->
+
+    <iframe
+      class="social-3d-iframe"
+      id="socialFrame"
+      title="Social media preview">
+
+    </iframe>
+
+
+    <div class="modal-controls">
 
       <div
         class="modal-title"
@@ -837,18 +842,8 @@ footer{
     </div>
 
 
-    <iframe
-      id="socialFrame"
-      title="Social media preview">
-
-    </iframe>
-
-
-    <div class="modal-overlay"></div>
-
-
     <div class="hint">
-      Drag to spin
+      Drag the card to spin
     </div>
 
 
@@ -870,7 +865,6 @@ footer{
   © 2026 Nathan · All links in one place
 
 </footer>
-
 
 </main>
 
@@ -934,7 +928,7 @@ const profiles = {
 };
 
 
-/* MAIN PAGE */
+/* MAIN TABS */
 
 function showMain(page){
 
@@ -966,9 +960,7 @@ function showMain(page){
       "#blog"
     );
 
-  }
-
-  else{
+  }else{
 
     goHome();
 
@@ -1010,7 +1002,7 @@ function goHome(){
 }
 
 
-/* PROFILE PAGE */
+/* INDIVIDUAL PROFILE */
 
 function showProfile(id){
 
@@ -1050,32 +1042,33 @@ function showProfile(id){
 
   document
     .getElementById("profileIconImg")
-    .src=profile.icon;
+    .src =
+    profile.icon;
 
 
   document
     .getElementById("profileHandle")
     .innerHTML =
-      profile.handle +
-      ' <span class="verified"></span>';
+    profile.handle +
+    ' <span class="verified"></span>';
 
 
   document
     .getElementById("profileName")
     .textContent =
-      profile.platform;
+    profile.platform;
 
 
   document
     .getElementById("profileFollowers")
     .textContent =
-      profile.followers;
+    profile.followers;
 
 
   document
     .getElementById("openApp")
     .href =
-      profile.url;
+    profile.url;
 
 
   history.replaceState(
@@ -1087,16 +1080,15 @@ function showProfile(id){
 }
 
 
-/* 3D SOCIAL POPUP */
+/* 3D IFRAME */
 
 const modal =
   document.getElementById("socialModal");
 
-const modalCard =
-  document.getElementById("modalCard");
 
-const socialFrame =
+const modalFrame =
   document.getElementById("socialFrame");
+
 
 const modalTitle =
   document.getElementById("modalTitle");
@@ -1115,7 +1107,7 @@ let rotX=0;
 let rotY=0;
 
 
-/* OPEN */
+/* OPEN SOCIAL */
 
 function openSocialPreview(event,id){
 
@@ -1124,6 +1116,7 @@ function openSocialPreview(event,id){
 
   const profile =
     profiles[id];
+
 
   if(!profile)
     return;
@@ -1139,13 +1132,16 @@ function openSocialPreview(event,id){
 
 
   /*
-    This creates a self-contained
-    iframe-style social preview.
+    The iframe contains the complete
+    social preview.
+
+    The iframe element itself is
+    the object being rotated.
   */
 
-  socialFrame.srcdoc = `
+  modalFrame.srcdoc = `
 
-<!doctype html>
+<!DOCTYPE html>
 
 <html>
 
@@ -1225,23 +1221,36 @@ body{
   font-weight:900;
 
   background:
-    ${
-      profile.className==="snapchat"
-      ? "#fffc00"
-      :
-      profile.className==="instagram"
-      ? "linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)"
-      :
-      "#000"
-    };
+
+  ${
+    profile.className==="snapchat"
+
+    ? "#fffc00"
+
+    :
+
+    profile.className==="instagram"
+
+    ? "linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)"
+
+    :
+
+    "#000"
+
+  };
 
   color:
-    ${
-      profile.className==="snapchat"
-      ? "#000"
-      :
-      "#fff"
-    };
+
+  ${
+    profile.className==="snapchat"
+
+    ? "#000"
+
+    :
+
+    "#fff"
+
+  };
 
 }
 
@@ -1351,7 +1360,7 @@ ${profile.followers}
   rotY=0;
 
 
-  modalCard.style.transform =
+  modalFrame.style.transform =
     "rotateX(0deg) rotateY(0deg) scale(1)";
 
 }
@@ -1368,7 +1377,7 @@ function closeSocialPreview(){
     "true"
   );
 
-  socialFrame.srcdoc="";
+  modalFrame.srcdoc="";
 
   activeSocial=null;
 
@@ -1391,7 +1400,7 @@ function continueToMain(){
 }
 
 
-/* 3D DRAGGING */
+/* DRAG THE ACTUAL IFRAME */
 
 function startDrag(x,y){
 
@@ -1413,12 +1422,14 @@ function moveDrag(x,y){
   const dx =
     x-startX;
 
+
   const dy =
     y-startY;
 
 
   rotY +=
     dx*.35;
+
 
   rotX -=
     dy*.22;
@@ -1427,18 +1438,29 @@ function moveDrag(x,y){
   rotX =
     Math.max(
       -22,
-      Math.min(22,rotX)
+      Math.min(
+        22,
+        rotX
+      )
     );
 
 
   rotY =
     Math.max(
       -35,
-      Math.min(35,rotY)
+      Math.min(
+        35,
+        rotY
+      )
     );
 
 
-  modalCard.style.transform =
+  /*
+    THE IFRAME ITSELF
+    gets transformed.
+  */
+
+  modalFrame.style.transform =
     `rotateX(${rotX}deg)
      rotateY(${rotY}deg)
      scale(1)`;
@@ -1453,43 +1475,50 @@ function moveDrag(x,y){
 
 /* MOUSE */
 
-modalCard.addEventListener(
+modalFrame.addEventListener(
   "mousedown",
-  e=>{
+  function(e){
+
     startDrag(
       e.clientX,
       e.clientY
     );
+
   }
 );
 
 
 window.addEventListener(
   "mousemove",
-  e=>{
+  function(e){
+
     moveDrag(
       e.clientX,
       e.clientY
     );
+
   }
 );
 
 
 window.addEventListener(
   "mouseup",
-  ()=>{
+  function(){
+
     dragging=false;
+
   }
 );
 
 
 /* TOUCH */
 
-modalCard.addEventListener(
+modalFrame.addEventListener(
   "touchstart",
-  e=>{
+  function(e){
 
-    const t=e.touches[0];
+    const t =
+      e.touches[0];
 
     startDrag(
       t.clientX,
@@ -1497,15 +1526,18 @@ modalCard.addEventListener(
     );
 
   },
-  {passive:true}
+  {
+    passive:true
+  }
 );
 
 
-modalCard.addEventListener(
+modalFrame.addEventListener(
   "touchmove",
-  e=>{
+  function(e){
 
-    const t=e.touches[0];
+    const t =
+      e.touches[0];
 
     moveDrag(
       t.clientX,
@@ -1513,25 +1545,29 @@ modalCard.addEventListener(
     );
 
   },
-  {passive:true}
-);
-
-
-modalCard.addEventListener(
-  "touchend",
-  ()=>{
-    dragging=false;
+  {
+    passive:true
   }
 );
 
 
-/* CLICK OUTSIDE */
+modalFrame.addEventListener(
+  "touchend",
+  function(){
+
+    dragging=false;
+
+  }
+);
+
+
+/* CLOSE WHEN CLICKING OUTSIDE */
 
 modal.addEventListener(
   "click",
-  e=>{
+  function(e){
 
-    if(e.target===modal){
+    if(e.target === modal){
 
       closeSocialPreview();
 
@@ -1541,13 +1577,13 @@ modal.addEventListener(
 );
 
 
-/* ESC */
+/* ESCAPE */
 
 document.addEventListener(
   "keydown",
-  e=>{
+  function(e){
 
-    if(e.key==="Escape"){
+    if(e.key === "Escape"){
 
       closeSocialPreview();
 
@@ -1562,7 +1598,10 @@ document.addEventListener(
 function route(){
 
   const hash =
-    location.hash.replace("#","");
+    location.hash.replace(
+      "#",
+      ""
+    );
 
 
   if(profiles[hash]){
@@ -1571,7 +1610,7 @@ function route(){
 
   }
 
-  else if(hash==="blog"){
+  else if(hash === "blog"){
 
     showMain("blog");
 
@@ -1607,7 +1646,8 @@ let started =
 
 if(!started){
 
-  started=Date.now();
+  started =
+    Date.now();
 
   localStorage.setItem(
     KEY,
@@ -1628,22 +1668,26 @@ function updateViews(){
 
 
   const days =
-    elapsed / 86400000;
+    elapsed /
+    86400000;
 
 
   const views =
     2000 +
     Math.floor(
-      days * 10000
+      days *
+      10000
     );
 
 
   document
-    .getElementById("viewCounter")
+    .getElementById(
+      "viewCounter"
+    )
     .textContent =
-      views.toLocaleString(
-        "en-US"
-      );
+    views.toLocaleString(
+      "en-US"
+    );
 
 }
 
